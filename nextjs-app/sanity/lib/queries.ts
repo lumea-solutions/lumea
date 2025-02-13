@@ -95,3 +95,19 @@ export const pagesSlugs = defineQuery(`
   *[_type == "page" && defined(slug.current)]
   {"slug": slug.current}
 `);
+
+export const globalSearchQuery = defineQuery(`
+  *[_type in ["page", 'post'] && language == $lang
+  && (
+  title match $queryString + '*' 
+  || name match $queryString + '*')] 
+  | order(publishedAt desc){
+    title,
+    name, 
+    bio,
+    body,
+    'slug' : slug.current,
+    description,
+    'type': _type,
+  }
+`);
