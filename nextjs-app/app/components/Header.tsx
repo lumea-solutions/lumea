@@ -11,8 +11,8 @@ export default function Header({
   logo: any;
   locales: string[];
 }) {
-  console.log(logo);
   const logoUrl = urlForImage(logo)?.url();
+
   return (
     <header className="fixed z-50 h-24 inset-0 bg-white/80 flex justify-between items-center backdrop-blur-lg p-3">
       <Link href="/">
