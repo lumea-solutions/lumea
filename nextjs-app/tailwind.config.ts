@@ -9,6 +9,7 @@ export default {
       padding: "2rem",
     },
     extend: {
+      fontFamily: { logo: ["Atkinson Hyperlegible Next", "sans-serif"] },
       boxShadow: {
         layer: "0 35px 60px -15px rgba(0, 0, 0, 0.3)",
       },
@@ -93,9 +94,6 @@ export default {
           900: "#183122",
           950: "#14211a",
         },
-      },
-      fontFamily: {
-        sans: ["var(--font-inter)"],
       },
     },
   },

@@ -15,8 +15,15 @@ export const settings = defineType({
   icon: CogIcon,
   fields: [
     defineField({
+      name: 'logo',
+      description: 'This field is the logo of your website.',
+      title: 'Logo',
+      type: 'image',
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: 'title',
-      description: 'This field is the title of your blog.',
+      description: 'This field is the tite of your website.',
       title: 'Title',
       type: 'string',
       initialValue: demo.title,
@@ -24,7 +31,7 @@ export const settings = defineType({
     }),
     defineField({
       name: 'description',
-      description: 'Used both for the <meta> description tag for SEO, and the blog subheader.',
+      description: 'Used both for the <meta> description tag for SEO, and the website subheader.',
       title: 'Description',
       type: 'array',
       initialValue: demo.description,

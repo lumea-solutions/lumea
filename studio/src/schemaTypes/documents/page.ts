@@ -13,6 +13,12 @@ export const page = defineType({
   icon: DocumentIcon,
   fields: [
     defineField({
+      name: 'language',
+      type: 'string',
+      readOnly: true,
+      hidden: true,
+    }),
+    defineField({
       name: 'name',
       title: 'Name',
       type: 'string',

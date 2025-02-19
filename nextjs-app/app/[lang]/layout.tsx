@@ -10,7 +10,6 @@ import { Toaster } from "sonner";
 import DraftModeToast from "@/app/components/DraftModeToast";
 import Footer from "@/app/components/Footer";
 import Header from "@/app/components/Header";
-import * as demo from "@/sanity/lib/demo";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import { settingsQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
@@ -22,7 +21,7 @@ import { handleError } from "../client-utils";
  */
 
 export async function generateStaticParams() {
-  const locales = process.env.NEXT_PUBLIC_LOCALES || "fr-CA";
+  const locales = process.env.NEXT_PUBLIC_LOCALES || "fr";
   return [
     locales.split(",").map((locale) => {
       return { lang: locale };
@@ -36,8 +35,8 @@ export async function generateMetadata(): Promise<Metadata> {
     // Metadata should never contain stega
     stega: false,
   });
-  const title = settings?.title || demo.title;
-  const description = settings?.description || demo.description;
+  const title = settings?.title || "Untitled";
+  const description = settings?.description;
 
   const ogImage = resolveOpenGraphImage(settings?.ogImage);
   let metadataBase: URL | undefined = undefined;
@@ -54,7 +53,7 @@ export async function generateMetadata(): Promise<Metadata> {
       template: `%s | ${title}`,
       default: title,
     },
-    description: toPlainText(description),
+    description: description ? toPlainText(description) : undefined,
     openGraph: {
       images: ogImage ? [ogImage] : [],
     },
@@ -74,6 +73,11 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: Promise<{ lang: string }>;
 }) {
+  const { data: settings } = await sanityFetch({
+    query: settingsQuery,
+    stega: false,
+  });
+
   const { isEnabled: isDraftMode } = await draftMode();
   const locale = (await params).lang.toLowerCase();
 
@@ -93,6 +97,7 @@ export default async function RootLayout({
           {/* The <SanityLive> component is responsible for making all sanityFetch calls in your application live, so should always be rendered. */}
           <SanityLive onError={handleError} />
           <Header
+            logo={settings?.logo}
             locales={
               process.env.NEXT_PUBLIC_LOCALES?.toLowerCase().split(",") || [
                 locale,

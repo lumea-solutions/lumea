@@ -56,9 +56,8 @@ export default defineConfig({
   plugins: [
     documentInternationalization({
       supportedLanguages: [
-        {id: 'fr-ca', title: 'French - CA'},
-        {id: 'en-ca', title: 'English - CA'},
-        {id: 'en-us', title: 'English - US'},
+        {id: 'fr', title: 'Francais'},
+        {id: 'en', title: 'English'},
       ],
       schemaTypes: ['page', 'post'],
     }),
