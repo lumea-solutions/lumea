@@ -12,6 +12,8 @@ export async function middleware(req: NextRequest) {
     .split(",");
   const currentLocale = req.nextUrl.pathname.split("/")[1].toLocaleLowerCase();
 
+  console.log(req);
+
   if (
     req.nextUrl.pathname.startsWith("/_next") ||
     req.nextUrl.pathname.includes("/api/") ||
